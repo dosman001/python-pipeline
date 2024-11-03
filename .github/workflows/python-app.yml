@@ -46,5 +46,10 @@ jobs:
         aws-region: ${{ secrets.SECRETS_AWS_REGION }}
     - name: deploy to ec2 instance
       if: github.ref == 'refs/heads/master' && job.status == 'success'
-      run: |
-       echo "hello world"
+      uses: appleboy/scp-action@master
+      with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "."
+          target: "" 
